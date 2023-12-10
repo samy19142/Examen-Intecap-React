@@ -173,7 +173,7 @@ console.log(rows)
             component="div"
             sx={{ padding: "20px" }}
           >
-            Products List
+            Listado de Clientes
           </Typography>
           <Divider />
           <Box height={10} />
