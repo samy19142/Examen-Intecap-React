@@ -17,6 +17,8 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import MuiAppBar from '@mui/material/AppBar';
 import{ useAppStore} from '../../appStore.jsx';
+import { useAuth } from '../../context/authContext.jsx';
+import Swal from 'sweetalert2';
 
 
 const AppBar = styled(MuiAppBar, {
@@ -73,10 +75,30 @@ export default function NavBar() {
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
+  const {user,logout}=useAuth();
+console.log(user)
   const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
+    handleLogout();
+    //setAnchorEl(event.currentTarget);
   };
+
+
+  const handleLogout=()=>{
+
+    Swal.fire({
+        title: "Quieres cerrar la sesión?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si",
+        cancelButtonText:'No'
+      }).then(async(result) => {
+        if (result.isConfirmed) {
+           await logout();
+        }
+      });
+}
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -160,7 +182,7 @@ export default function NavBar() {
         >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
+        <p>Cerrar Sesión</p>
       </MenuItem>
     </Menu>
   );
@@ -221,7 +243,7 @@ export default function NavBar() {
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
               color="inherit"
-            >
+            ><Typography>{user.email}</Typography>
               <AccountCircle />
             </IconButton>
           </Box>

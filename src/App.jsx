@@ -1,30 +1,40 @@
-
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Settings from "./components/pages/Settings";
 import Products from "./components/pages/products/Products";
 import Home from "./components/pages/Home";
-import Analytics from "./components/pages/Analytics";
-import Shopping from './components/pages/Shopping';
-import Informe from './components/pages/Informe';
-import Clients from './components/pages/Clients/Clients';
+import Shopping from "./components/pages/Shopping";
+import Informe from "./components/pages/Informe";
+import Clients from "./components/pages/Clients/Clients";
+import Login from "./components/Login";
+import { AuthProvider } from "./context/authContext/";
+import { Container } from "react-bootstrap";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import Login2 from "./components/Login2";
+
 function App() {
- 
   return (
-    <>
+    <Container>
       <div>
-        <Router>
+        <AuthProvider>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/clientes" element={<Clients />} />
-            <Route path="/analytics" element={<Analytics />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/shopping" element={<Shopping />} />
-            <Route path="/resultados" element={<Informe />} />
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/login" element={<Login />} />
+            <Route path="/products" element={<ProtectedRoute><Products /></ProtectedRoute> } />
+            <Route path="/clientes" element={<ProtectedRoute><Clients /></ProtectedRoute>} />
+            <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+            <Route path="/shopping" element={<ProtectedRoute><Shopping /></ProtectedRoute>} />
+            <Route path="/resultados" element={<ProtectedRoute><Informe /></ProtectedRoute>} />
           </Routes>
-        </Router>
+        </AuthProvider>
       </div>
-    </>
+    </Container>
   );
 }
 
