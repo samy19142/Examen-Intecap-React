@@ -140,7 +140,7 @@ export default function SideNav() {
           </ListItem>
 
           {/* ListItem Cliente */}
-          <ListItem sx={{ display: 'block' }} onClick={() => { navigate("/products") }} >
+          <ListItem sx={{ display: 'block' }} onClick={() => { navigate("/clientes") }} >
             <ListItemButton
               sx={{
                 minHeight: 48,
